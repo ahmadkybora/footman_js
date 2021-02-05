@@ -13,37 +13,68 @@ function crateAndWriteOutput(operator, resultBeforeCalc, calcNumber)
     outputResult(currentResult, calcDescription);
 }
 
-function add()
+function calculateResult(calculateType)
 {
     const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult + enteredNumber;
-    crateAndWriteOutput('+', initialResult, enteredNumber)
+    if
+    (
+        calculateType !== 'ADD' &&
+        calculateType !== 'SUBTRACT' &&
+        calculateType !== 'MULTIPLY' &&
+        calculateType !== 'DIVIDE' ||
+        !enteredNumber
+    )
+    {
+        return;
+    }
+
+    if
+    (
+        calculateType === 'ADD' ||
+        calculateType === 'SUBTRACT' ||
+        calculateType === 'MULTIPLY' ||
+        calculateType === 'DIVIDE'
+    ) {
+        const enteredNumber = getUserNumberInput();
+        const initialResult = currentResult;
+        let mathOperator;
+
+        if (calculateType === 'ADD') {
+            currentResult += enteredNumber;
+            mathOperator = '+';
+        } else if (calculateType === 'SUBTRACT') {
+            currentResult -= enteredNumber;
+            mathOperator = '-';
+        } else if (calculateType === 'MULTIPLY') {
+            currentResult *= enteredNumber;
+            mathOperator = '*';
+        } else if (calculateType === 'DIVIDE') {
+            currentResult /= enteredNumber;
+            mathOperator = '/';
+        }
+
+        crateAndWriteOutput(mathOperator, initialResult, enteredNumber);
+    }
 }
 
+function add()
+{
+    calculateResult('ADD')
+}
 
 function subtract()
 {
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult - enteredNumber;
-    crateAndWriteOutput('-', initialResult, enteredNumber)
+    calculateResult('SUBTRACT')
 }
 
 function multiply()
 {
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult * enteredNumber;
-    crateAndWriteOutput('*', initialResult, enteredNumber)
+    calculateResult('MULTIPLY')
 }
 
 function divide()
 {
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult / enteredNumber;
-    crateAndWriteOutput('/', initialResult, enteredNumber)
+    calculateResult('DIVIDE')
 }
 
 addBtn.addEventListener('click', add);
